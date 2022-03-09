@@ -41,6 +41,7 @@ yarn dev
 
 4. SVG to NextJS
 
+- [more info](https://frontend-digest.com/how-to-import-svgs-into-nextjs-8ec6100e613f)
 - babel-plugin-inline-react-svg
 
 ```bash
@@ -52,4 +53,11 @@ file: .babelrc
 
 ```
 
-- [more info](https://frontend-digest.com/how-to-import-svgs-into-nextjs-8ec6100e613f)
+## cURL
+
+```bash
+$ curl --request PATCH http://localhost:3001/api/todos/1
+
+Head Request
+$ curl --request PATCH -I http://localhost:3001/api/todos/1
+```

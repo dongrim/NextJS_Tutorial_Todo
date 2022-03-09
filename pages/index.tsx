@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 import TodoList from '../components/TodoList';
 import { TodoType } from '../types/todo';
+import { getTodosAPI } from '../lib/api/todo';
 
-const todos: TodoType[] = [
+/* const todos: TodoType[] = [
   { id: 1, text: 'shopping', color: 'red', checked: false },
   { id: 2, text: 'do home work', color: 'orange', checked: false },
   { id: 3, text: 'coding', color: 'yellow', checked: true },
@@ -14,26 +14,32 @@ const todos: TodoType[] = [
   { id: 8, text: 'study alone', color: 'deep_gray', checked: false },
   { id: 9, text: 'rest', color: 'deep_red', checked: false },
   { id: 10, text: 'study alone', color: 'deep_green', checked: true },
-];
+  { id: 11, text: 'done', color: 'red', checked: false },
+]; */
 
-const Home: NextPage = () => {
-  const [toggle, setToggle] = useState(true);
+interface IProps {
+  todos: TodoType[]
+}
 
-  const handleToggle = () => {
-    console.log('toggle mount');
-    setToggle(!toggle);
-  };
-
-  return (
-    <>
-      <div>
-        {toggle ? <TodoList todos={todos} /> : <div>none</div>}
-        {/* <button type='button' onClick={handleToggle}>
-          toggle mount
-        </button> */}
-      </div>
-    </>
-  );
+const Home: NextPage<IProps> = ({ todos }) => {
+  return <TodoList todos={todos} />;
 };
 
 export default Home;
+
+// Pre-rendering
+// (SG: at build time) getStaticProps, getStaticPaths
+// (SSR: on each request) getServerSideProps
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const { data } = await getTodosAPI();
+    return {
+      props: { todos: data }
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      props: {},
+    };
+  }
+};

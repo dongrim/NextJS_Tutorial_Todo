@@ -4,8 +4,7 @@ import pallete from '../styles/pallete';
 import { TodoType } from '../types/todo';
 import TrashCanIcon from '../public/statics/svg/trash_can.svg';
 import CheckMarkIcon from '../public/statics/svg/check_mark.svg';
-
-console.log(CheckMarkIcon);
+import { toggleCheckAPI } from '../lib/api/todo';
 
 interface StyledProps {
   titleColor?: string;
@@ -14,12 +13,15 @@ interface StyledProps {
 const Container = styled.div<StyledProps>`
   width: 100%;
 
+  .todo-trash-can {
+    visibility: hidden;
+  }
+
   .todo-list-header {
     color: ${props => props.titleColor};
     padding: 12px;
     position: relative;
     border-bottom: 1px solid ${pallete.gray};
-
     .todo-list-last-todo {
       font-size: 1.125rem;
       margin: 0 0 15px;
@@ -28,12 +30,10 @@ const Container = styled.div<StyledProps>`
         margin-left: 12px;
       }
     }
-
     .todo-list-header-colors {
       display: flex;
       .todo-list-header-color-num {
         display: flex;
-        /* margin-left: 8px; */
         margin-right: 15px;
         p {
           line-height: 25px;
@@ -67,16 +67,21 @@ const Container = styled.div<StyledProps>`
         .todo-color-block {
           filter: brightness(85%);
         }
+        .todo-trash-can {
+          visibility: visible;
+        }
       }
 
       .todo-left-side {
         border: 1px solid blue;
         flex: 3;
-        cursor: pointer;
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
+        &:hover + .todo-trash-can {
+          visibility: hidden;
+        }
         .todo-color-block {
           width: 12px;
           height: 100%;
@@ -86,35 +91,48 @@ const Container = styled.div<StyledProps>`
           text-decoration: line-through;
         }
         .todo-text {
+          cursor: pointer;
           margin-left: 12px;
           font-size: 1.125rem;
         }
       }
+
       .todo-right-side {
         border: 1px solid red;
         flex: 1;
+        position: relative;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         margin-right: 12px;
+        .todo-left-side:hover {
+          background-color: red;
+        }
         svg {
           &:first-child {
             margin-right: 16px;
           }
         }
         .todo-trash-can {
-          /* width: 20px; */
-          path {
-            fill: ${pallete.deep_red};
+          position: absolute;
+          transform: translateX(220%);
+          fill: ${pallete.deep_red};
+          opacity: 0.5;
+          &:hover {
+            opacity: 1;
           }
         }
+
         .todo-check-mark {
+          position: absolute;
+          transform: scale(160%) translateX(5%) translateY(-12%);
           fill: ${pallete.deep_green};
         }
         .todo-button {
-          width: 27px;
-          height: 27px;
+          cursor: pointer;
+          width: 23px;
+          height: 23px;
           border-radius: 50%;
           border: 1px solid gray;
           background-color: transparent;
@@ -151,9 +169,9 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
   };
 
   const getTodoColorNums = useCallback(() => {
+    // console.log('@1', todos);
     const colors: ObjectIndexType = {};
     todos.forEach(todo => {
-      console.log(todos);
       const isExisted = colors[todo.color];
       if (!isExisted) {
         colors[todo.color] = 1;
@@ -165,7 +183,7 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
   }, [todos]);
 
   const memoizedValue = useMemo(getTodoColorNums, [todos]);
-  console.log('@2', memoizedValue);
+  // console.log('@2', memoizedValue);
 
   return (
     <Container titleColor='dimgray'>
@@ -208,14 +226,20 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
               </p>
             </div>
             <div className='todo-right-side'>
+              <TrashCanIcon
+                className='todo-trash-can'
+                onClick={() => toggleCheckAPI(todo.id, todo.checked)}
+              />
+              <button
+                className='todo-button'
+                type='button'
+                onClick={() => console.log('check btn')}
+              />
               {todo.checked && (
-                <>
-                  <TrashCanIcon className='todo-trash-can' />
-                  <CheckMarkIcon className='todo-check-mark' />
-                </>
-              )}
-              {!todo.checked && (
-                <button className='todo-button' type='button' />
+                <CheckMarkIcon
+                  className='todo-check-mark'
+                  onClick={() => console.log('check btn')}
+                />
               )}
             </div>
           </li>
