@@ -2,6 +2,7 @@ import type { NextPage, GetServerSideProps } from 'next';
 import TodoList from '../components/TodoList';
 import { TodoType } from '../types/todo';
 import { getTodosAPI } from '../lib/api/todo';
+import TodoListConnector from '../components/TodoListConnector';
 
 /* const todos: TodoType[] = [
   { id: 1, text: 'shopping', color: 'red', checked: false },
@@ -22,7 +23,13 @@ interface IProps {
 }
 
 const Home: NextPage<IProps> = ({ todos }) => {
-  return <TodoList todos={todos} />;
+  // return <TodoList todos={todos} />;
+  return (
+    <>
+      <TodoList todos={todos} />
+      <TodoListConnector />
+    </>
+  );
 };
 
 export default Home;

@@ -39,7 +39,7 @@ yarn dev
 - @typescript-eslint/eslint-plugin
 - @typescript-eslint/parser
 
-4. SVG to NextJS
+4. `SVG` to NextJS
 
 - [more info](https://frontend-digest.com/how-to-import-svgs-into-nextjs-8ec6100e613f)
 - babel-plugin-inline-react-svg
@@ -52,6 +52,14 @@ file: .babelrc
 }
 
 ```
+
+5. `Redux`
+
+- redux
+- react-redux
+- next-redux-wrapper
+- redux-devtools-extension
+- @types/react-redux
 
 ## cURL
 
