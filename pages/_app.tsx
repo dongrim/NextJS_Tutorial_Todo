@@ -1,6 +1,6 @@
 // import '../styles/globals.css'
 import type { AppProps } from "next/app";
-import { Header } from "../components";
+import { Header, Footer } from "../components";
 import GlobalStyle from "../styles/GlobalStyle";
 
 function App({ Component, pageProps }: AppProps) {
@@ -9,6 +9,7 @@ function App({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <Header />
       <Component {...pageProps} />
+      <Footer />
     </>
   );
 }

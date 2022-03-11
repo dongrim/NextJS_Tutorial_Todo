@@ -1,10 +1,11 @@
+import { useRouter } from 'next/router';
 import React, { useState, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import pallete from '../styles/pallete';
 import { TodoType } from '../types/todo';
 import TrashCanIcon from '../public/statics/svg/trash_can.svg';
 import CheckMarkIcon from '../public/statics/svg/check_mark.svg';
-import { toggleCheckAPI } from '../lib/api/todo';
+import { checkTodoAPI, delTodoAPI } from '../lib/api/todo';
 
 interface StyledProps {
   titleColor?: string;
@@ -73,7 +74,6 @@ const Container = styled.div<StyledProps>`
       }
 
       .todo-left-side {
-        border: 1px solid blue;
         flex: 3;
         width: 100%;
         height: 100%;
@@ -98,7 +98,6 @@ const Container = styled.div<StyledProps>`
       }
 
       .todo-right-side {
-        border: 1px solid red;
         flex: 1;
         position: relative;
         height: 100%;
@@ -149,18 +148,14 @@ interface IProps {
 // <>: generic
 const TodoList: React.FC<IProps> = ({ todos }) => {
   const [testToggle, setTestToggle] = useState(false);
-  const [colorPallete, setColorPallete] = useState({
-    red: 'red',
-    gree: 'green',
-    blue: 'blue',
-  });
+  const [localTodos, setLocalTodos] = useState(todos);
 
-  Container.defaultProps = {
-    theme: {
-      title: 'orange',
-      color: 'red',
-    },
-  };
+  // Container.defaultProps = {
+  //   theme: {
+  //     title: 'orange',
+  //     color: 'red',
+  //   },
+  // };
 
   type ObjectIndexType = {
     // red: number;
@@ -169,9 +164,9 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
   };
 
   const getTodoColorNums = useCallback(() => {
-    // console.log('@1', todos);
     const colors: ObjectIndexType = {};
-    todos.forEach(todo => {
+    // todos.forEach(todo => {
+    localTodos.forEach(todo => {
       const isExisted = colors[todo.color];
       if (!isExisted) {
         colors[todo.color] = 1;
@@ -184,6 +179,40 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
 
   const memoizedValue = useMemo(getTodoColorNums, [todos]);
   // console.log('@2', memoizedValue);
+
+  // const router = useRouter();
+  const toggleCheckTodo = (id: number): void => {
+    try {
+      checkTodoAPI(id, null); // check null
+      // # 1
+      // router.reload();
+      // # 2
+      // router.push('/');
+      // # 3
+      const newTodos = localTodos.map(todo => {
+        if (todo.id === id) {
+          return { ...todo, checked: !todo.checked };
+        }
+        return todo;
+      });
+      setLocalTodos(newTodos);
+      console.log('Toggle Success');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const deleteTodo = async (_id: Number) => {
+    try {
+      const id = Number(_id);
+      await delTodoAPI(id);
+      const filtetedTodos = localTodos.filter(todo => todo.id !== id);
+      setLocalTodos(filtetedTodos);
+      console.log('Delete Success');
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <Container titleColor='dimgray'>
@@ -210,7 +239,8 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
         value='fire'
       /> */}
       <ul className='todo-list'>
-        {todos.map((todo, idx) => (
+        {/* {todos.map((todo, idx) => ( */}
+        {localTodos.map((todo, idx) => (
           <li className='todo-item' key={idx}>
             <div className='todo-left-side'>
               <div
@@ -228,17 +258,17 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
             <div className='todo-right-side'>
               <TrashCanIcon
                 className='todo-trash-can'
-                onClick={() => toggleCheckAPI(todo.id, todo.checked)}
+                onClick={() => deleteTodo(todo.id)}
               />
               <button
                 className='todo-button'
                 type='button'
-                onClick={() => console.log('check btn')}
+                onClick={() => toggleCheckTodo(todo.id)}
               />
               {todo.checked && (
                 <CheckMarkIcon
                   className='todo-check-mark'
-                  onClick={() => console.log('check btn')}
+                  onClick={() => toggleCheckTodo(todo.id)}
                 />
               )}
             </div>

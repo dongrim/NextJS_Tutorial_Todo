@@ -17,4 +17,17 @@ const existId = (id: number): boolean => {
   return isExist;
 };
 
-export default { getList, existId };
+const writeList = (data) => {
+  fs.writeFileSync('./data/todos.json', JSON.stringify(data));
+};
+
+const appendTodo = (data) => {
+  const todos = getList();
+  fs.writeFileSync('./data/todos.json', JSON.stringify([...todos, data]));
+};
+
+const deleteTodo = (data) => {
+  fs.writeFileSync('./data/todos.json', JSON.stringify(data));
+};
+
+export default { getList, existId, writeList, appendTodo, deleteTodo };
