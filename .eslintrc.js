@@ -25,6 +25,7 @@ module.exports = {
     allowExpressions: 'off',
     'react/jsx-fragments': 'off',
     'react/jsx-no-useless-fragment': 'off',
+    'default-param-last': 'off',
     'react/function-component-definition': 'off',
     'linebreak-style': 'off',
     'no-console': 'off',

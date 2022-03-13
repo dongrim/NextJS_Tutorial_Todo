@@ -1,12 +1,16 @@
 import { ActionTypes } from '../constants';
 
-export const TodoReducer = (state, action) => {
+const initialState = {
+  // count: 0
+};
+
+export const TodoReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case ActionTypes.LOAD_DATA:
       return {
         ...state,
-        value: payload
+        todos: payload
       };
     default:
       return state || {};

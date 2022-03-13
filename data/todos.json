@@ -1,6 +1,6 @@
 [
-  { "id": 1, "text": "shopping", "color": "red", "checked": false },
-  { "id": 2, "text": "do home work", "color": "orange", "checked": false },
-  { "id": 3, "text": "coding", "color": "yellow", "checked": false },
-  { "id": 4, "text": "go to the gym", "color": "orange", "checked": false }
+  { "id": 1, "text": "agoda", "color": "red", "checked": false },
+  { "id": 2, "text": "bitcoin", "color": "green", "checked": false },
+  { "id": 3, "text": "code", "color": "blue", "checked": true },
+  { "id": 4, "text": "good job", "color": "deep_green", "checked": false }
 ]
