@@ -3,13 +3,14 @@ import { TodoType } from '../types/todo';
 import { getTodosAPI } from '../lib/api/todo';
 import TodoListConnector from '../components/TodoListConnector';
 import { wrapper } from '../redux/store';
-import { loadData } from '../redux/actions';
+import { todoActions } from '../redux/actions';
 
 // interface IProps {
 //   todos: TodoType[]
 // }
 // const Home: NextPage<IProps> = ({ todos }) => {
-const Home: NextPage = () => {
+const Home: NextPage = (props) => {
+  console.log('##', props);
   return <TodoListConnector />;
 };
 
@@ -22,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   (store) => async () => {
     try {
       const { data } = await getTodosAPI();
-      store.dispatch({ type: 'load_data', payload: data });
+      store.dispatch(todoActions.loadData(data));
       return { props: {} };
     } catch (e) {
       console.log(e);

@@ -66,7 +66,7 @@ const Container = styled.div`
 `;
 
 export const AddTodo: React.FC<any> = ({ addTodo }) => {
-  const [text, setText] = useState<string>();
+  const [articleInputText, setText] = useState<string>();
   const [selectedColor, setSelectedColor] = useState<TodoType['color']>();
 
   return (
@@ -77,7 +77,7 @@ export const AddTodo: React.FC<any> = ({ addTodo }) => {
           <button
             type='button'
             className='add-todo-submit-button'
-            onClick={() => addTodo({ text, selectedColor })}
+            onClick={() => addTodo({ text: articleInputText, selectedColor })}
           >
             add schedule
           </button>
@@ -108,7 +108,7 @@ export const AddTodo: React.FC<any> = ({ addTodo }) => {
         <textarea
           className="add-todo-textarea"
           placeholder="What's you have to do Today?"
-          value={text}
+          value={articleInputText}
           onChange={(evt) => setText(evt.target.value)}
         />
       </div>

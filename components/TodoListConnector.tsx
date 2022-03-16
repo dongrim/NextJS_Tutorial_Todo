@@ -1,24 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import TodoList from './TodoList';
-import { loadData, addTodo, toggleCheck, deleteTodo } from '../redux/actions';
+import { todoActions } from '../redux/actions';
 
 const mapStateToProps = (dataStore) => {
-  console.log("@mapStateToProps:", dataStore);
   return { ...dataStore };
 };
 
-const mapDispatchToProps = {
-  loadData,
-  addTodo,
-  toggleCheck,
-  deleteTodo
-};
+const mapDispatchToProps = { ...todoActions };
 
-const TodoListConnector = (props) => {
-  console.log('@props', props);
-  // eslint-disable-next-line react/destructuring-assignment
-  const { todos } = props.TodoReducer;
+const TodoListConnector = ({ FromRootReducer }: any) => {
+  const { todos } = FromRootReducer;
   return <TodoList todos={todos} />;
 };
 

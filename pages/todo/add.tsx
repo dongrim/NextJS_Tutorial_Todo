@@ -4,7 +4,8 @@ import { AddTodo } from '../../components/AddTodo';
 import { addTodoAPI } from '../../lib/api/todo';
 import { TodoType } from '../../types/todo';
 
-const Todo: NextPage = () => {
+const Todo: NextPage = (props) => {
+  console.log('###', props);
   const router = useRouter();
 
   type AddTodo = {

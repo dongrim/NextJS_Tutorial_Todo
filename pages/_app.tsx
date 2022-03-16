@@ -3,9 +3,11 @@ import GlobalStyle from "../styles/GlobalStyle";
 import { Header, Footer } from "../components";
 import { wrapper } from '../redux/store';
 // import { Provider } from 'react-redux';
-// import { TodoDataStore } from '../redux/store';
 
-function App({ Component, pageProps }: AppProps) {
+// function App({ Component, pageProps }: AppProps) {
+function App(props) {
+  const { Component, pageProps } = props;
+  console.log(props);
   return (
     <>
       <GlobalStyle />

@@ -1,29 +1,31 @@
 import { ActionTypes } from '../constants';
 
-export const loadData = (payload) => {
+const loadData = (payload) => {
   return {
     type: ActionTypes.LOAD_DATA,
     payload
   };
 };
 
-export const addTodo = (payload) => {
+const addTodo = (payload) => {
   return {
     type: ActionTypes.LOAD_DATA,
     payload
   };
 };
 
-export const toggleCheck = (payload) => {
+const toggleCheck = (payload) => {
   return {
     type: ActionTypes.LOAD_DATA,
     payload
   };
 };
 
-export const deleteTodo = (payload) => {
+const deleteTodo = (payload) => {
   return {
     type: ActionTypes.LOAD_DATA,
     payload
   };
 };
+
+export const todoActions = { loadData, addTodo, toggleCheck, deleteTodo };
