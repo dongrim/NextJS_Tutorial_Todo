@@ -4,8 +4,7 @@ import { AddTodo } from '../../components/AddTodo';
 import { addTodoAPI } from '../../lib/api/todo';
 import { TodoType } from '../../types/todo';
 
-const Todo: NextPage = (props) => {
-  console.log('###', props);
+const Todo: NextPage = () => {
   const router = useRouter();
 
   type AddTodo = {
@@ -21,7 +20,6 @@ const Todo: NextPage = (props) => {
         return;
       }
       addTodoAPI({ text, color: selectedColor });
-      console.log('Add Success');
       router.push('/');
     } catch (e) {
       console.error(e);

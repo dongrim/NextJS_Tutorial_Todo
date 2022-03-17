@@ -9,16 +9,12 @@ import { todoActions } from '../redux/actions';
 //   todos: TodoType[]
 // }
 // const Home: NextPage<IProps> = ({ todos }) => {
-const Home: NextPage = (props) => {
-  console.log('##', props);
+const Home: NextPage = () => {
   return <TodoListConnector />;
 };
 
 export default Home;
 
-// Pre-rendering
-// (SG: at build time) getStaticProps, getStaticPaths
-// (SSR: on each request) getServerSideProps
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
     try {

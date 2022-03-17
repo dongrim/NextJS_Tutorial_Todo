@@ -9,9 +9,8 @@ const mapStateToProps = (dataStore) => {
 
 const mapDispatchToProps = { ...todoActions };
 
-const TodoListConnector = ({ FromRootReducer }: any) => {
-  const { todos } = FromRootReducer;
-  return <TodoList todos={todos} />;
+const TodoListConnector = (props) => {
+  return <TodoList {...props} />;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoListConnector);

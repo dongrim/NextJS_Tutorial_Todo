@@ -29,6 +29,7 @@ module.exports = {
     'react/function-component-definition': 'off',
     'linebreak-style': 'off',
     'no-console': 'off',
+    'react/destructuring-assignment': 'off',
     'no-unused-vars': 'off', //사용안한 변수 경고 중복
     '@typescript-eslint/no-unused-vars': 'warn', //사용안한 변수는 경고
     'jsx-a11y/control-has-associated-label': 'off', // 상호작용하는 엘리먼트에 label을 넣는다

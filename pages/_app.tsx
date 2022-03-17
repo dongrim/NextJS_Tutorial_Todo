@@ -4,10 +4,7 @@ import { Header, Footer } from "../components";
 import { wrapper } from '../redux/store';
 // import { Provider } from 'react-redux';
 
-// function App({ Component, pageProps }: AppProps) {
-function App(props) {
-  const { Component, pageProps } = props;
-  console.log(props);
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyle />

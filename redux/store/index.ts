@@ -3,11 +3,10 @@ import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 import { TodoReducer } from '../reducers';
 
 const rootReducer = combineReducers({
-  FromRootReducer: TodoReducer,
+  TodoStates: TodoReducer,
 });
 
-const reducer = (state, action) => {
-  console.log('@@@', action);
+/* const reducer = (state, action) => {
   // HYDRATE = "__NEXT_REDUX_WRAPPER_HYDRATE__"
   if (action.type === HYDRATE) {
     const nextState = {
@@ -17,9 +16,9 @@ const reducer = (state, action) => {
     return nextState;
   }
   return rootReducer(state, action);
-};
+}; */
 
-const reducer123 = (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case HYDRATE:
       return { ...state, ...action.payload };
@@ -33,7 +32,6 @@ const reducer123 = (state, action) => {
 export type RootState = ReturnType<typeof rootReducer>;
 
 const bindMiddleware = (middleware: any) => {
-  console.log(process.env);
   if (process.env.NODE_ENV !== 'production') {
     const { composeWithDevTools } = require('redux-devtools-extension');
     return composeWithDevTools(applyMiddleware(...middleware));

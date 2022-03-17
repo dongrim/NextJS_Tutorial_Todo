@@ -1,30 +1,31 @@
 import { ActionTypes } from '../constants';
 
 const loadData = (payload) => {
+  console.log('@loadData-payload', payload);
   return {
     type: ActionTypes.LOAD_DATA,
-    payload
-  };
-};
-
-const addTodo = (payload) => {
-  return {
-    type: ActionTypes.LOAD_DATA,
-    payload
+    payload // data of todos
   };
 };
 
 const toggleCheck = (payload) => {
   return {
-    type: ActionTypes.LOAD_DATA,
-    payload
+    type: ActionTypes.TOGGLE_CHECK,
+    payload // id
+  };
+};
+
+const addTodo = (payload) => {
+  return {
+    type: ActionTypes.ADD_TODO,
+    payload // data of single todo
   };
 };
 
 const deleteTodo = (payload) => {
   return {
-    type: ActionTypes.LOAD_DATA,
-    payload
+    type: ActionTypes.DELETE_TODO,
+    payload // id
   };
 };
 

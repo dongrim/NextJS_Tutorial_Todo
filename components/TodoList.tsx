@@ -142,13 +142,21 @@ const Container = styled.div<StyledProps>`
   }
 `;
 
-interface IProps {
-  todos: TodoType[];
-}
+// interface IProps {
+//   todos: TodoType[];
+// }
 // <>: generic
-const TodoList: React.FC<IProps> = ({ todos }) => {
-  const [testToggle, setTestToggle] = useState(false);
-  const [localTodos, setLocalTodos] = useState(todos);
+// const TodoList: React.FC<IProps> = (props) => {
+const TodoList = (props) => {
+  console.log(props);
+  const { todos } = props.TodoStates;
+  const TodoActions = {
+    toggleCheck: props.toggleCheck,
+    addTodo: props.addTodo,
+    deleteTodo: props.deleteTodo,
+  };
+  // const [testToggle, setTestToggle] = useState(false);
+  // const [localTodos, setLocalTodos] = useState(todos);
 
   // Container.defaultProps = {
   //   theme: {
@@ -165,8 +173,7 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
 
   const getTodoColorNums = useCallback(() => {
     const colors: ObjectIndexType = {};
-    // todos.forEach(todo => {
-    localTodos.forEach(todo => {
+    todos.forEach(todo => {
       const isExisted = colors[todo.color];
       if (!isExisted) {
         colors[todo.color] = 1;
@@ -184,19 +191,19 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
   const toggleCheckTodo = (id: number): void => {
     try {
       checkTodoAPI(id, null); // check null
-      // # 1
-      // router.reload();
+      TodoActions.toggleCheck(id);
+      /* // # 1
+      router.reload();
       // # 2
-      // router.push('/');
+      router.push('/');
       // # 3
-      const newTodos = localTodos.map(todo => {
+      const newTodos = todos.map(todo => {
         if (todo.id === id) {
           return { ...todo, checked: !todo.checked };
         }
         return todo;
       });
-      setLocalTodos(newTodos);
-      console.log('Toggle Success');
+      setLocalTodos(newTodos); */
     } catch (e) {
       console.error(e);
     }
@@ -206,9 +213,9 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
     try {
       const id = Number(_id);
       await delTodoAPI(id);
-      const filtetedTodos = localTodos.filter(todo => todo.id !== id);
-      setLocalTodos(filtetedTodos);
-      console.log('Delete Success');
+      TodoActions.deleteTodo(id);
+      /* const filtetedTodos = todos.filter(todo => todo.id !== id);
+      setLocalTodos(filtetedTodos); */
     } catch (e) {
       console.error(e);
     }
@@ -240,7 +247,7 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
       /> */}
       <ul className='todo-list'>
         {/* {todos.map((todo, idx) => ( */}
-        {localTodos.map((todo, idx) => (
+        {todos.map((todo, idx) => (
           <li className='todo-item' key={idx}>
             <div className='todo-left-side'>
               <div
