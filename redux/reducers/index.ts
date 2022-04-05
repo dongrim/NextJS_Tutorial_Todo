@@ -1,7 +1,7 @@
 import { ActionTypes } from '../constants';
 
 const initialState: any = {
-  // count: 0
+  todos: []
 };
 
 export const TodoReducer = (state = initialState, action) => {
@@ -11,11 +11,13 @@ export const TodoReducer = (state = initialState, action) => {
       return todo;
     });
   };
+
   const handleDeleteTodo = (id) => {
     return state.todos.filter(todo => todo.id !== id);
   };
 
   const { type, payload } = action;
+
   switch (type) {
     case ActionTypes.LOAD_DATA:
       return {

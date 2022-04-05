@@ -1,10 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { TodoType } from '../../../types/todo';
+// import { TodoType } from '../../../types/todo';
 import Data from '../../../lib/data';
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-  /*
-  if (req.method === "GET") {
+  /* if (req.method === "GET") {
     try {
       const todos = await new Promise<TodoType[]>((resolve, reject) => {
         fs.readFile('./data/todos.json', (err, data) => {
@@ -24,8 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
       res.statusCode = 500;
       // res.send(e); // type error of NextApiResponse<TodoType[]>
     }
-  }
-  */
+  } */
   if (req.method === "PATCH") {
     try {
       const todoId = Number(req.query.id);

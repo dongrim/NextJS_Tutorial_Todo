@@ -147,13 +147,12 @@ const Container = styled.div<StyledProps>`
 // }
 // <>: generic
 // const TodoList: React.FC<IProps> = (props) => {
-const TodoList = (props) => {
-  console.log(props);
-  const { todos } = props.TodoStates;
+const TodoList = ({ TodoStates, addTodo, toggleCheck, deleteTodo }) => {
+  const { todos } = TodoStates;
   const TodoActions = {
-    toggleCheck: props.toggleCheck,
-    addTodo: props.addTodo,
-    deleteTodo: props.deleteTodo,
+    toggleCheck,
+    addTodo,
+    deleteTodo,
   };
   // const [testToggle, setTestToggle] = useState(false);
   // const [localTodos, setLocalTodos] = useState(todos);
@@ -209,7 +208,7 @@ const TodoList = (props) => {
     }
   };
 
-  const deleteTodo = async (_id: Number) => {
+  const removeTodo = async (_id: Number) => {
     try {
       const id = Number(_id);
       await delTodoAPI(id);
@@ -265,7 +264,7 @@ const TodoList = (props) => {
             <div className='todo-right-side'>
               <TrashCanIcon
                 className='todo-trash-can'
-                onClick={() => deleteTodo(todo.id)}
+                onClick={() => removeTodo(todo.id)}
               />
               <button
                 className='todo-button'

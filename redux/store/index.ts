@@ -19,6 +19,8 @@ const rootReducer = combineReducers({
 }; */
 
 const reducer = (state, action) => {
+  console.log('@1: ', state);
+  console.log('@2: ', action);
   switch (action.type) {
     case HYDRATE:
       return { ...state, ...action.payload };
@@ -29,8 +31,10 @@ const reducer = (state, action) => {
   }
 };
 
+// store type
 export type RootState = ReturnType<typeof rootReducer>;
 
+// store enhancer
 const bindMiddleware = (middleware: any) => {
   if (process.env.NODE_ENV !== 'production') {
     const { composeWithDevTools } = require('redux-devtools-extension');
