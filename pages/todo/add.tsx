@@ -7,12 +7,12 @@ import { TodoType } from '../../types/todo';
 const Todo: NextPage = () => {
   const router = useRouter();
 
-  type AddTodo = {
+  type AddTodoType = {
     text: string
     selectedColor: TodoType["color"]
   }
 
-  const handlerAddtodo = ({ text, selectedColor }: AddTodo) => {
+  const handlerAddtodo = ({ text, selectedColor }: AddTodoType) => {
     try {
       if (!text || !selectedColor) {
         const message = 'Select color and write text';

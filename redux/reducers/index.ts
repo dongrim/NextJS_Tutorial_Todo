@@ -1,6 +1,11 @@
 import { ActionTypes } from '../constants';
+import { TodoType } from '../../types/todo';
 
-const initialState: any = {
+interface TodoState {
+  todos: TodoType[];
+}
+
+const initialState: TodoState = {
   todos: []
 };
 
@@ -11,7 +16,6 @@ export const TodoReducer = (state = initialState, action) => {
       return todo;
     });
   };
-
   const handleDeleteTodo = (id) => {
     return state.todos.filter(todo => todo.id !== id);
   };

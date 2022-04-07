@@ -1,1 +1,4 @@
-[{"id":1,"text":"agoda","color":"red","checked":true},{"id":2,"text":"bitcoin","color":"green","checked":true},{"id":4,"text":"gg1","color":"navy","checked":false},{"id":5,"text":"wowow!","color":"deep_red","checked":false},{"id":6,"text":"aaaa","color":"deep_red","checked":false}]
+[
+  { "id": 3, "text": "m1", "color": "red", "checked": true },
+  { "id": 4, "text": "n2", "color": "orange", "checked": true }
+]

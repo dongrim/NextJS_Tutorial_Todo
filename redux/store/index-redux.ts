@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
 const reducer = (state, action) => {
   console.log('@1: ', state);
   console.log('@2: ', action);
+  console.log('============');
   switch (action.type) {
     case HYDRATE:
       return { ...state, ...action.payload };

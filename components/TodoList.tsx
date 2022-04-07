@@ -1,11 +1,14 @@
 import { useRouter } from 'next/router';
 import React, { useState, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import pallete from '../styles/pallete';
 import { TodoType } from '../types/todo';
 import TrashCanIcon from '../public/statics/svg/trash_can.svg';
 import CheckMarkIcon from '../public/statics/svg/check_mark.svg';
 import { checkTodoAPI, delTodoAPI } from '../lib/api/todo';
+import { RootState, useSelector } from '../redux/store/index-toolkit';
+import { setTodo, toggleTodo, addTodo, deleteTodo } from '../redux/store/todoSlice';
 
 interface StyledProps {
   titleColor?: string;
@@ -135,7 +138,6 @@ const Container = styled.div<StyledProps>`
           border-radius: 50%;
           border: 1px solid gray;
           background-color: transparent;
-          /* outline: none; */
         }
       }
     }
@@ -144,18 +146,26 @@ const Container = styled.div<StyledProps>`
 
 // interface IProps {
 //   todos: TodoType[];
-// }
-// <>: generic
+// } // <>: generic
 // const TodoList: React.FC<IProps> = (props) => {
-const TodoList = ({ TodoStates, addTodo, toggleCheck, deleteTodo }) => {
-  const { todos } = TodoStates;
+const TodoList = () => {
+// const TodoList = ({ TodoStates, addTodo, toggleCheck, deleteTodo }) => {
+  // 1) connect from react-redux, props from parent component
+  /* const { todos } = TodoStates;
   const TodoActions = {
     toggleCheck,
     addTodo,
     deleteTodo,
-  };
-  // const [testToggle, setTestToggle] = useState(false);
-  // const [localTodos, setLocalTodos] = useState(todos);
+  }; */
+
+  // 2) useSelector, useDispatch from react-redux
+  const todos = useSelector(state => state.TodoStates.todos);
+  const dispatch = useDispatch();
+  // dispatch(setTodo([{ id: 10, text: "test", color: "navy", checked: false }]));
+
+  // 3) local store
+  /* const [testToggle, setTestToggle] = useState(false);
+  const [localTodos, setLocalTodos] = useState(todos); */
 
   // Container.defaultProps = {
   //   theme: {
@@ -190,7 +200,8 @@ const TodoList = ({ TodoStates, addTodo, toggleCheck, deleteTodo }) => {
   const toggleCheckTodo = (id: number): void => {
     try {
       checkTodoAPI(id, null); // check null
-      TodoActions.toggleCheck(id);
+      // TodoActions.toggleCheck(id); // 1) redux
+      dispatch(toggleTodo({ id }));
       /* // # 1
       router.reload();
       // # 2
@@ -212,7 +223,8 @@ const TodoList = ({ TodoStates, addTodo, toggleCheck, deleteTodo }) => {
     try {
       const id = Number(_id);
       await delTodoAPI(id);
-      TodoActions.deleteTodo(id);
+      // TodoActions.deleteTodo(id);  // 1) redux
+      dispatch(deleteTodo({ id }));
       /* const filtetedTodos = todos.filter(todo => todo.id !== id);
       setLocalTodos(filtetedTodos); */
     } catch (e) {
